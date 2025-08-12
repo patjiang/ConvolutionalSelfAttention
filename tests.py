@@ -19,3 +19,5 @@ model = ConvolutionalSelfAttention2d(1, (28*28), 4)
 output = model(input)
 assert output.shape == input.shape
 print('conv2d CSA passed')
+
+print('all tests passed')
