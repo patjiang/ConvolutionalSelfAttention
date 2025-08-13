@@ -7,6 +7,7 @@ import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch import optim
 
 def do_pca(lats, labs, folder, epc):
   data = np.concat(lats)
