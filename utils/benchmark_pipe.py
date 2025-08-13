@@ -41,7 +41,7 @@ def do_pca(lats, labs, folder, epc):
   plt.savefig(f'{folder}/frame_{tmp2}.png')
   plt.close()
 
-def run_test(model, trainloader = trainloader, folder = 'lats', nlr = 0.001):
+def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
   np.random.seed(42)
   torch.manual_seed(42) 
   #for reproducibility
