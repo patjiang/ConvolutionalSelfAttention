@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 def do_pca(lats, labs, folder, epc):
   data = np.concat(lats)
