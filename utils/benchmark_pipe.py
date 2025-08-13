@@ -4,6 +4,7 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import torch
 
 def do_pca(lats, labs, folder, epc):
   data = np.concat(lats)
