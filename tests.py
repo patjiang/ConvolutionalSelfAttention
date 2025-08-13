@@ -20,4 +20,12 @@ output = model(input)
 assert output.shape == input.shape
 print('conv2d CSA passed')
 
+input = torch.rand(64, 1, 28, 28)
+
+model = SelfAttentionModule((28*28))
+
+output = model(input.flatten(start_dim=1))
+assert output.shape == input.shape
+print('SA test passed')
+
 print('all tests passed')
