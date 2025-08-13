@@ -88,4 +88,4 @@ def run_test(model, trainloader = trainloader, folder = 'lats', nlr = 0.001):
 
   output_path = f'/content/{folder}/vid_out.mp4'
 
-  !ffmpeg -r 10 -i "{image_folder}/frame_%03d.png" -vcodec libx264 -pix_fmt yuv420p "{output_path}" > /dev/null 2>&1
+  os.system('ffmpeg -r 10 -i "{image_folder}/frame_%03d.png" -vcodec libx264 -pix_fmt yuv420p "{output_path}" > /dev/null 2>&1')
