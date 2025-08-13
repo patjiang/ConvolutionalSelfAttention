@@ -76,10 +76,10 @@ class ConvolutionalSelfAttention2d(nn.Module):
     return x * out_feat
     
 class SelfAttentionModule(nn.Module):
-    def __init__(self, embed_dim):
-        super().__init__()
-        self.self_attention = nn.MultiheadAttention(embed_dim, num_heads=1, batch_first=True)
+  def __init__(self, embed_dim):
+    super().__init__()
+    self.self_attention = nn.MultiheadAttention(embed_dim, num_heads=1, batch_first=True)
 
-    def forward(self, x):
-        output, _ = self.self_attention(query=x, key=x, value=x)
-        return output
+  def forward(self, x):
+    output, _ = self.self_attention(query=x, key=x, value=x)
+    return output
