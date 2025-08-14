@@ -76,9 +76,8 @@ class CNN(nn.Module):
         x = self.pool(x)
         x = F.relu(self.conv2(x))
         x = self.pool(x)
-        pred = x.reshape(x.shape[0], -1)
-        x = self.fc1(pred)
-
+        x = x.reshape(x.shape[0], -1)
+        pred = self.fc1(x)
         return pred, x
 
 class CNN_torch(nn.Module):
@@ -95,6 +94,6 @@ class CNN_torch(nn.Module):
         x = F.relu(self.conv2(x))
         x = F.max_pool2d(x, 2, 2)
         x = x.view(-1, 4*4*50)
-        pred = F.relu(self.fc1(x))
-        x = self.fc2(pred)
+        x = F.relu(self.fc1(x))
+        pred = self.fc2(x)
         return pred, x
