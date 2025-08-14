@@ -57,7 +57,6 @@ def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
   lats, labs, losses = [], [], []
   for e in tqdm(range(epochs)):
       running_loss = 0
-      cnt = 0
       if(e % 1 == 0):
         plot_latents = True
         lats, labs = [], []
@@ -74,9 +73,6 @@ def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
             lats.append(emb.detach().cpu().squeeze().flatten(start_dim=1).numpy())
             labs.append(labels)
           running_loss += loss.item()
-          cnt += 1
-          if(cnt > 29):
-            break
       losses.append(running_loss/cnt)
       
       if(plot_latents):
