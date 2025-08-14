@@ -73,7 +73,7 @@ def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
             lats.append(emb.detach().cpu().squeeze().flatten(start_dim=1).numpy())
             labs.append(labels)
           running_loss += loss.item()
-      losses.append(running_loss/cnt)
+      losses.append(running_loss/len(trainloader))
       
       if(plot_latents):
         do_pca(lats, labs, folder, e)
