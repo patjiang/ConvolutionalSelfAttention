@@ -7,7 +7,7 @@ class MNIST_CSA_1_layer(nn.Module):
     self.downsamp_1 = nn.MaxPool2d(2)
     self.CSA_1 = ConvolutionalSelfAttention2d(in_ch, dimprod // 4, 2)
     self.out = nn.LazyLinear(10)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
   def forward(self, x):
     x = self.downsamp_1(x)
@@ -23,7 +23,7 @@ class MNIST_CSA_2_layer(nn.Module):
     self.downsamp_2 = nn.MaxPool2d(2)
     self.CSA_2 = ConvolutionalSelfAttention2d(in_ch, (dimprod // 16))
     self.out = nn.LazyLinear(10)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
   def forward(self, x):
     x = self.downsamp_1(x)
@@ -39,7 +39,7 @@ class MNIST_SA_1_layer(nn.Module):
     self.downsamp_1 = nn.Linear(dimprod, dimprod // 4)
     self.SA_1 = SelfAttentionModule(dimprod // 4)
     self.out = nn.LazyLinear(10)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
   def forward(self, x):
     x = x.flatten(start_dim=1)
@@ -56,7 +56,7 @@ class MNIST_SA_2_layer(nn.Module):
     self.downsamp_2 = nn.Linear(dimprod // 4, dimprod // 16)
     self.SA_2 = SelfAttentionModule((dimprod // 16))
     self.out = nn.LazyLinear(10)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
   def forward(self, x):
     x = x.flatten(start_dim=1)
@@ -74,7 +74,7 @@ class CNN(nn.Module):
         self.pool = nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2))
         self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
         self.fc1 = nn.Linear(16*7*7, num_classes)
-        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
@@ -92,7 +92,7 @@ class CNN_torch(nn.Module):
         self.conv2 = nn.Conv2d(20, 50, 5, 1)
         self.fc1 = nn.Linear(4*4*50, 500)
         self.fc2 = nn.Linear(500, 10)
-        device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
