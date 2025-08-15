@@ -63,9 +63,9 @@ def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
       for images, labels in (trainloader):
           optimizer.zero_grad()
 
-          pred, emb = model(images)
+          pred, emb = model(images.to(model.device))
           output = F.log_softmax(pred, dim=1)
-          nlloss = criterion(output, labels)
+          nlloss = criterion(output, labels.to(model.device))
           loss = nlloss
           loss.backward()
           optimizer.step()
