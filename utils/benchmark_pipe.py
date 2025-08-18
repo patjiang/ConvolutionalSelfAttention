@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch import optim
+import time
 
 def do_pca(lats, labs, folder, epc):
   data = np.concat(lats)
@@ -48,6 +49,7 @@ def do_pca(lats, labs, folder, epc):
 def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
   np.random.seed(42)
   torch.manual_seed(42) 
+  start = time.time()
   #for reproducibility
   os.makedirs(folder, exist_ok=True)
   criterion = nn.NLLLoss()
@@ -83,3 +85,4 @@ def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
   plt.title(f'Loss over epochs')
   plt.show()
   plt.close()
+  return min(losses), time.time() - start
