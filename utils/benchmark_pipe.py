@@ -64,7 +64,6 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
         lats, labs = [], []
       for images, labels in (trainloader):
           if(images.shape[0] != 64):
-            print(images.shape)
             continue
           optimizer.zero_grad()
           pred, emb = model(images.to(model.device))
