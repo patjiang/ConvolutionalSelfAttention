@@ -70,7 +70,7 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
           loss = criterion(output, labels.to(model.device))
           loss.backward()
           optimizer.step()
-          _, train_out = torch.max(outputs, 1)
+          _, train_out = torch.max(output, 1)
           running_loss += loss.item()
           trn_corr += torch.sum(train_out == labels.data)
       
@@ -80,7 +80,7 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
           pred, emb = model(images.to(model.device))
           output = F.log_softmax(pred, dim=1)
           loss = criterion(output, labels.to(model.device))
-          _, test_out = torch.max(outputs, 1)
+          _, test_out = torch.max(output, 1)
           test_run += loss.item()
           test_corr += torch.sum(test_out == labels.data)
           if(plot_latents):
