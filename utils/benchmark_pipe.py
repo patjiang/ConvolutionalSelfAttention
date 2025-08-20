@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from torch import optim
 import time
 
-def do_pca(lats, labs, folder, epc):
+def do_pca(lats, labs, folder, epc, acc):
   data = np.concat(lats)
   labels = np.concat(labs)
 
@@ -33,7 +33,7 @@ def do_pca(lats, labs, folder, epc):
   plt.colorbar(scatter, label='Label')
   plt.xlabel('Principal Component 1')
   plt.ylabel('Principal Component 2')
-  plt.title(f'PCA of Data Colored by Labels {epc}')
+  plt.title(f'PCA of Test Data Colored by Labels epc: {epc}, acc: {acc}')
   plt.grid(True)
   #plt.show()
   tmp = str(epc)
@@ -46,7 +46,7 @@ def do_pca(lats, labs, folder, epc):
   plt.savefig(f'{folder}/frame_{tmp2}.png')
   plt.close()
 
-def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
+def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
   np.random.seed(42)
   torch.manual_seed(42) 
   start = time.time()
@@ -67,18 +67,29 @@ def run_test(model, trainloader, folder = 'lats', nlr = 0.001):
 
           pred, emb = model(images.to(model.device))
           output = F.log_softmax(pred, dim=1)
-          nlloss = criterion(output, labels.to(model.device))
-          loss = nlloss
+          loss = criterion(output, labels.to(model.device))
           loss.backward()
           optimizer.step()
-          if(plot_latents):
-            lats.append(emb.detach().cpu().squeeze().flatten(start_dim=1).numpy())
-            labs.append(labels)
           running_loss += loss.item()
+      
+      with torch.no_grad():
+        test_run = 0
+        for images, labels in (testloader):
+          pred, emb = model(images.to(model.device))
+          output = F.log_softmax(pred, dim=1)
+          loss = criterion(output, labels.to(model.device))
+          _, test_out = torch.max(outputs, 1)
+          test_run += loss
+          num_correct += torch.sum(test_out == labels.data)
+          if(plot_latents):
+              lats.append(emb.detach().cpu().squeeze().flatten(start_dim=1).numpy())
+              labs.append(labels)
+      
+      test_accuracy = num_correct.float()/ len(testloader)
       losses.append(running_loss/len(trainloader))
       
       if(plot_latents):
-        do_pca(lats, labs, folder, e)
+        do_pca(lats, labs, folder, e, test_accuracy)
         plot_latents = False
   print('\n best NLL: ', min(losses))
   plt.plot(np.arange(1, 201), losses)
