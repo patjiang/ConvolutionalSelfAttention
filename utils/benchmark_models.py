@@ -144,6 +144,7 @@ class LeNet(nn.Module):
       self.fc1 = nn.Linear(4*4*50, 500)
       self.dropout1 = nn.Dropout(0.5)
       self.fc2 = nn.Linear(500, 10)
+      self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
     def forward(self, x):
       x = F.relu(self.conv1(x))
       x = F.max_pool2d(x, 2, 2)
