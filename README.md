@@ -10,6 +10,7 @@ The tests are done on the built-in torch MNIST dataset; with input sizes of 28x2
 - Generation of images with classification as a secondary objective.
 
 Included in each test is a video of the evolution of the Principle Component Analysis of the Latent Space of each model.
+
 #TODO: Display comparison of generated numbers, as well as comparisons of per-class AUROC
 
 # Results
@@ -22,3 +23,11 @@ Included in each test is a video of the evolution of the Principle Component Ana
 |LSA 2 Layers     | 6.309e-1     |                |                 |             |
 | Simple CNN      | **7.468e-7** |                |                 |             |
 |torch example CNN| 2.18e-5      |                |                 |             |
+
+#TODO: Add comparison to LeNet as well
+
+#TODO: Add Bar Charts Here
+
+#TODO: Add VAE Table Here
+
+#TODO: Add Bar Charts Here
