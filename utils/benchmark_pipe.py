@@ -90,11 +90,11 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
               lats.append(emb.detach().cpu().squeeze().flatten(start_dim=1).numpy())
               labs.append(labels)
       
-      test_accuracy = test_corr.float()/ len(testloader)
+      test_accuracy = test_corr / len(testloader)
       tlosses.append(test_run/len(testloader))
       taccur.append(test_accuracy)
       losses.append(running_loss/len(trainloader))
-      accur.append(trn_corr.float() / len(trainloader))
+      accur.append(trn_corr / len(trainloader))
       
       if(plot_latents):
         do_pca(lats, labs, folder, e, test_accuracy)
