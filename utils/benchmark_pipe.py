@@ -63,6 +63,8 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
         plot_latents = True
         lats, labs = [], []
       for images, labels in (trainloader):
+          if(images.shape[0] != 64):
+            continue
           optimizer.zero_grad()
           pred, emb = model(images.to(model.device))
           output = F.log_softmax(pred, dim=1)
@@ -76,7 +78,8 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
       with torch.no_grad():
         test_run, test_corr = 0, 0
         for images, labels in (testloader):
-          print(images.shape)
+          if(images.shape[0] != 64):
+            continue
           pred, emb = model(images.to(model.device))
           output = F.log_softmax(pred, dim=1)
           loss = criterion(output, labels.to(model.device))
