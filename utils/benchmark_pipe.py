@@ -56,9 +56,9 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
   optimizer = optim.Adam(model.parameters(), lr=nlr)
   plot_latents = False
   epochs = 200
-  lats, labs, losses = [], [], []
+  lats, labs, losses, accur, tlosses, taccur = [], [], [], [], [], []
   for e in tqdm(range(epochs)):
-      running_loss = 0
+      running_loss, trn_corr = 0, 0
       if(e % 1 == 0):
         plot_latents = True
         lats, labs = [], []
@@ -70,28 +70,34 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
           loss = criterion(output, labels.to(model.device))
           loss.backward()
           optimizer.step()
+          _, train_out = torch.max(outputs, 1)
           running_loss += loss.item()
+          trn_corr += torch.sum(train_out == labels.data)
       
       with torch.no_grad():
-        test_run = 0
+        test_run, test_corr = 0, 0
         for images, labels in (testloader):
           pred, emb = model(images.to(model.device))
           output = F.log_softmax(pred, dim=1)
           loss = criterion(output, labels.to(model.device))
           _, test_out = torch.max(outputs, 1)
-          test_run += loss
-          num_correct += torch.sum(test_out == labels.data)
+          test_run += loss.item()
+          test_corr += torch.sum(test_out == labels.data)
           if(plot_latents):
               lats.append(emb.detach().cpu().squeeze().flatten(start_dim=1).numpy())
               labs.append(labels)
       
       test_accuracy = num_correct.float()/ len(testloader)
+      tlosses.append(test_run/len(testloader))
+      taccur.append(test_accuracy)
       losses.append(running_loss/len(trainloader))
+      accur.append(trn_corr.float() / len(trainloader))
       
       if(plot_latents):
         do_pca(lats, labs, folder, e, test_accuracy)
         plot_latents = False
-  print('\n best NLL: ', min(losses))
+  print('\n best Train Loss: ', min(losses), '\t best Train Accuracy: ', min(accur))
+  print('\n best Test Loss: ', min(losses), '\t best Test Accuracy: ', min(taccur))
   plt.plot(np.arange(1, 201), losses)
   plt.title(f'Loss over epochs')
   plt.show()
