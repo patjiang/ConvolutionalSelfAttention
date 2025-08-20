@@ -99,8 +99,8 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
       if(plot_latents):
         do_pca(lats, labs, folder, e, test_accuracy)
         plot_latents = False
-  print('\n best Train Loss: ', min(losses), '\t best Train Accuracy: ', min(accur))
-  print('\n best Test Loss: ', min(losses), '\t best Test Accuracy: ', min(taccur))
+  print('\n best Train Loss: ', min(losses), '\t best Train Accuracy: ', max(accur))
+  print('\n best Test Loss: ', min(losses), '\t best Test Accuracy: ', max(taccur))
   plt.plot(np.arange(1, 201), losses)
   plt.title(f'Loss over epochs')
   plt.show()
