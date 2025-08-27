@@ -46,7 +46,7 @@ def do_pca(lats, labs, folder, epc, acc):
   plt.savefig(f'{folder}/frame_{tmp2}.png')
   plt.close()
 
-def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
+def run_test(model, trainloader, testloader, plot_latents = False, folder = 'lats', nlr = 0.001):
   np.random.seed(42)
   torch.manual_seed(42) 
   start = time.time()
@@ -54,12 +54,12 @@ def run_test(model, trainloader, testloader, folder = 'lats', nlr = 0.001):
   os.makedirs(folder, exist_ok=True)
   criterion = nn.NLLLoss()
   optimizer = optim.Adam(model.parameters(), lr=nlr)
-  plot_latents = False
+  plot_latents = plot_latents
   epochs = 200
   lats, labs, losses, accur, tlosses, taccur = [], [], [], [], [], []
   for e in tqdm(range(epochs)):
       running_loss, trn_corr = 0, 0
-      if(e % 1 == 0):
+      if((e % 1 == 0) and (plot_latents)):
         plot_latents = True
         lats, labs = [], []
       for images, labels in (trainloader):
