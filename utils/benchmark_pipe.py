@@ -104,5 +104,6 @@ def run_test(model, trainloader, testloader, plot_latents = False, folder = 'lat
   plt.plot(np.arange(1, 201), losses)
   plt.title(f'Loss over epochs')
   plt.show()
+  plt.savefig(f'{model.__class__.__name__}_loss.png')
   plt.close()
   return min(losses), time.time() - start
