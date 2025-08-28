@@ -51,7 +51,8 @@ def run_test(model, trainloader, testloader, plot_latents = False, folder = 'lat
   torch.manual_seed(42) 
   start = time.time()
   #for reproducibility
-  os.makedirs(folder, exist_ok=True)
+  if plot_latents:
+    os.makedirs(folder, exist_ok=True)
   criterion = nn.NLLLoss()
   optimizer = optim.Adam(model.parameters(), lr=nlr)
   plot_latents = plot_latents
