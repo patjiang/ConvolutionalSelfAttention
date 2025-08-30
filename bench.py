@@ -2,10 +2,10 @@ import torch
 from torchvision import datasets, transforms
 import torch.nn as nn
 import torch.nn.functional as F
-from ConvolutionalSelfAttention.utils.modules import *
-from ConvolutionalSelfAttention.utils.benchmark_models import *
-from ConvolutionalSelfAttention.utils.benchmark_pipe import *
-from ConvolutionalSelfAttention.utils.data_load_test import *
+from utils.modules import *
+from utils.benchmark_models import *
+from utils.benchmark_pipe import *
+from utils.data_load_test import *
 import pandas as pd
 
 
