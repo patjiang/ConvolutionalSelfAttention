@@ -6,6 +6,7 @@ from ConvolutionalSelfAttention.utils.modules import *
 from ConvolutionalSelfAttention.utils.benchmark_models import *
 from ConvolutionalSelfAttention.utils.benchmark_pipe import *
 from ConvolutionalSelfAttention.utils.data_load_test import *
+import pandas as pd
 
 
 transform = transforms.Compose([transforms.ToTensor(),
@@ -105,3 +106,12 @@ plt.tight_layout(rect=[0, 0, 0.9, 1])
 plt.savefig('benchmarks.png', dpi=200, bbox_inches="tight")
 
 plt.show()
+
+df = pd.DataFrame({
+    "Model": models,
+    "Log Params": log_params,
+    "Best NLL": best_nll,
+    "Time Spent (s)": time_spent
+})
+
+df.to_csv("benchmark_results.csv", index=False)
