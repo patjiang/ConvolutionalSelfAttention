@@ -19,55 +19,55 @@ testset = datasets.MNIST('MNIST_data_test/', download=True, train=False, transfo
 model = MNIST_CSA_1_layer(1, (28*28)).to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-csa_1_loss, csa_1_time = run_test(model, trainloader, testloader, '')
+csa_1_loss, csa_1_time, csa_1_llist = run_test(model, trainloader, testloader, '')
 csa_1 = sum(param.numel() for param in model.parameters())
 
 model = MNIST_CSA_2_layer(1, (28*28)).to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-csa_2_loss, csa_2_time = run_test(model, trainloader, testloader, '')
+csa_2_loss, csa_2_time, csa_2_llist = run_test(model, trainloader, testloader, '')
 csa_2 = sum(param.numel() for param in model.parameters())
 
 model = MNIST_CSA_1_layer_full(1, (28*28)).to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-csa_1f_loss, csa_1f_time = run_test(model, trainloader, testloader, '')
+csa_1f_loss, csa_1f_time, csa_1f_llist = run_test(model, trainloader, testloader, '')
 csa_1f = sum(param.numel() for param in model.parameters())
 
 model = MNIST_CSA_2_layer_full(1, (28*28)).to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-csa_2f_loss, csa_2f_time = run_test(model, trainloader, testloader, '')
+csa_2f_loss, csa_2f_time, csa_2f_llist = run_test(model, trainloader, testloader, '')
 csa_2f = sum(param.numel() for param in model.parameters())
 
 model = MNIST_SA_1_layer(1, (28*28)).to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-lsa_1_loss, lsa_1_time = run_test(model, trainloader, testloader, folder = '', nlr = 0.00001)
+lsa_1_loss, lsa_1_time, lsa_1_llist = run_test(model, trainloader, testloader, folder = '', nlr = 0.00001)
 lsa_1 = sum(param.numel() for param in model.parameters())
 
 model = MNIST_SA_2_layer(1, (28*28)).to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-lsa_2_loss, lsa_2_time = run_test(model, trainloader, testloader, folder = '', nlr = 0.00001)
+lsa_2_loss, lsa_2_time, lsa_2_llist = run_test(model, trainloader, testloader, folder = '', nlr = 0.00001)
 lsa_2 = sum(param.numel() for param in model.parameters())
 
 model = CNN().to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-cnn_1_loss, cnn_1_time = run_test(model, trainloader, testloader, '')
+cnn_1_loss, cnn_1_time, cnn_1_llist = run_test(model, trainloader, testloader, '')
 cnn_1 = sum(param.numel() for param in model.parameters())
 
 model = CNN_torch().to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-cnn_2_loss, cnn_2_time = run_test(model, trainloader, testloader, folder='', nlr = 0.00002)
+cnn_2_loss, cnn_2_time, cnn_2_llist = run_test(model, trainloader, testloader, folder='', nlr = 0.00002)
 cnn_2 = sum(param.numel() for param in model.parameters())
 
 model = LeNet().to('cuda')
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
-lenet_loss, lenet_time = run_test(model, trainloader, testloader, folder = '', nlr = 0.00002)
+lenet_loss, lenet_time, lenet_llist = run_test(model, trainloader, testloader, folder = '', nlr = 0.00002)
 lenet = sum(param.numel() for param in model.parameters())
 
 import matplotlib.pyplot as plt
@@ -111,7 +111,9 @@ df = pd.DataFrame({
     "Model": models,
     "Log Params": log_params,
     "Best NLL": best_nll,
-    "Time Spent (s)": time_spent
+    "Time Spent (s)": time_spent,
+    "Train Loss, Accuracy; Test Loss, Accuracy": [csa_1_llist, csa_2_llist, csa_1f_llist, csa_2f_llist, 
+                                                  lsa_1_llist, lsa_2_llist, cnn_1_llist, cnn_2_llist, lenet_llist]
 })
 
 df.to_csv("benchmark_results.csv", index=False)
