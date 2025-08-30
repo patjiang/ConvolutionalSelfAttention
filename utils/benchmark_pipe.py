@@ -100,11 +100,11 @@ def run_test(model, trainloader, testloader, plot_latents = False, folder = 'lat
       if(plot_latents):
         do_pca(lats, labs, folder, e, test_accuracy)
         plot_latents = False
-  print('\n best Train Loss: ', min(losses), '\t best Train Accuracy: ', max(accur))
-  print('\n best Test Loss: ', min(losses), '\t best Test Accuracy: ', max(taccur))
+  print('\n best Train Loss: ', min(losses), '\t best Train Accuracy: ', max(accur).item())
+  print('\n best Test Loss: ', min(tlosses), '\t best Test Accuracy: ', max(taccur).item())
   plt.plot(np.arange(1, 201), losses)
   plt.title(f'Loss over epochs')
   plt.show()
   plt.savefig(f'{model.__class__.__name__}_loss.png')
   plt.close()
-  return min(losses), time.time() - start
+  return min(losses), time.time() - start, [min(losses), max(accur).item(), min(tlosses), max(taccur).item()]
