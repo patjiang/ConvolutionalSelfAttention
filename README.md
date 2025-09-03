@@ -14,7 +14,7 @@ Included in each test is a video of the evolution of the Principle Component Ana
 #TODO: Display comparison of generated numbers, as well as comparisons of per-class AUROC
 
 # Results
-
+##Classification Task
 | Model Type       | MNIST NLL(train) | MNIST NLL(test) | MNIST Accuracy(train) | MNIST Accuracy(test) |
 | ---------------- | ---------------- | --------------- | --------------------- | -------------------- |
 |CSA 1 Layer       | 1.390e-1         | 1.443e-1        | 61.115                | 60.809               |
@@ -28,6 +28,8 @@ Included in each test is a video of the evolution of the Principle Component Ana
 |LeNet             | 1.598e-3         | **2.489e-2**    | 63.909                | **63.140**           |
 
 ![Alt text](imgs/benchmarks.png "Comparison of Runtime, NLL, Model Size")
+
+##Generative Task
 #TODO: Add VAE Table Here
 
-#TODO: Add Bar Charts Here
+#TODO: Add VAE Bar Charts Here
