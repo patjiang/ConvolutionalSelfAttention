@@ -33,3 +33,7 @@ Included in each test is a video of the evolution of the Principle Component Ana
 #TODO: Add VAE Table Here
 
 #TODO: Add VAE Bar Charts Here
+
+# Replicating Results
+
+#TODO: Add repeatable scripts; bench.py works, but needs more customizability.
