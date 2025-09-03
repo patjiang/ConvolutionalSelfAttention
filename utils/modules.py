@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+#@TODO: Give class definition control over the type of pooling.
 class ConvolutionalSelfAttention3d(nn.Module):
   def __init__(self, in_ch, dimprod, scale_reduce = None):
     super().__init__()
