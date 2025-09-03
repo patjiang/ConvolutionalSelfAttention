@@ -27,8 +27,7 @@ Included in each test is a video of the evolution of the Principle Component Ana
 |torch example CNN | 3.808e-5         | 2.718e-2        | **63.931**            | 63.070               |
 |LeNet             | 1.598e-3         | **2.489e-2**    | 63.909                | **63.140**           |
 
-#TODO: Add Bar Charts Here
-![Alt text](imgs/benchmarks.png "Title")
+![Alt text](imgs/benchmarks.png "Comparison of Runtime, NLL, Model Size")
 #TODO: Add VAE Table Here
 
 #TODO: Add Bar Charts Here
