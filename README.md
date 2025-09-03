@@ -13,7 +13,7 @@ Included in each test is a video of the evolution of the Principle Component Ana
 
 
 # Results
-##Classification Task
+## Classification Task
 | Model Type       | MNIST NLL(train) | MNIST NLL(test) | MNIST Accuracy(train) | MNIST Accuracy(test) |
 | ---------------- | ---------------- | --------------- | --------------------- | -------------------- |
 |CSA 1 Layer       | 1.390e-1         | 1.443e-1        | 61.115                | 60.809               |
@@ -26,9 +26,11 @@ Included in each test is a video of the evolution of the Principle Component Ana
 |torch example CNN | 3.808e-5         | 2.718e-2        | *63.931*              | 63.070               |
 |LeNet             | 1.598e-3         | *2.489e-2*      | 63.909                | *63.140*             |
 
+The best results in the table above are displayed using *italics*
+
 ![Alt text](imgs/benchmarks.png "Comparison of Runtime, NLL, Model Size")
 
-##Generative Task
+## Generative Task
 #TODO: Add VAE Table Here
 
 #TODO: Add VAE Bar Charts Here
