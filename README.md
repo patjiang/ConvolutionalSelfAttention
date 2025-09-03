@@ -11,7 +11,6 @@ The tests are done on the built-in torch MNIST dataset; with input sizes of 28x2
 
 Included in each test is a video of the evolution of the Principle Component Analysis of the Latent Space of each model. These can only be viewed on google colab, however, and the larger classification script does not have the videos loaded due to render times. Clicking run all will generate the videos, and since random seeds are set in the training pipe, each latent space will not change (unless parameters are changed)
 
-#TODO: Display comparison of generated numbers, as well as comparisons of per-class AUROC
 
 # Results
 ##Classification Task
