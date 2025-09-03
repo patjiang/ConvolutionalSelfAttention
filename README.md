@@ -28,7 +28,7 @@ Included in each test is a video of the evolution of the Principle Component Ana
 |LeNet             | 1.598e-3         | **2.489e-2**    | 63.909                | **63.140**           |
 
 #TODO: Add Bar Charts Here
-![Alt text](img/benchmark.png "Title")
+![Alt text](imgs/benchmark.png "Title")
 #TODO: Add VAE Table Here
 
 #TODO: Add Bar Charts Here
