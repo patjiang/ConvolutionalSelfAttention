@@ -31,10 +31,8 @@ The best results in the table above are displayed using  <ins>***underlined bold
 ![Alt text](imgs/benchmarks.png "Comparison of Runtime, NLL, Model Size")
 
 ## Generative Task
+### Coming Soon!
 #TODO: Add VAE Table Here
 
 #TODO: Add VAE Bar Charts Here
 
-# Replicating Results
-
-#TODO: Add repeatable scripts; bench.py works, but needs more customizability.
