@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-#@TODO: Give class definition control over the type of pooling.
 class ConvolutionalSelfAttention3d(nn.Module):
   def __init__(self, in_ch, dimprod, scale_reduce = None):
     super().__init__()
@@ -39,9 +38,26 @@ class ConvolutionalSelfAttention3d(nn.Module):
     return x * out_feat
 
 class ConvolutionalSelfAttention2d(nn.Module):
-  def __init__(self, in_ch, dimprod, scale_reduce = None):
+  def __init__(self, in_ch, dimprod, activation = 'sigmoid', pool = 'avg', scale_reduce = None):
     super().__init__()
     self.dw_conv = nn.Conv2d(in_ch, in_ch, 5, padding = 2)
+
+    if activation == 'sigmoid':
+      act = nn.Sigmoid()
+    elif activation == 'gelu':
+      act = nn.GELU()
+    elif activation = 'relu':
+      act = nn.ReLU()
+
+    if pool == 'avg':
+      pool = nn.AvgPool2d(scale_reduce)
+    elif pool == 'max':
+      pool = nn.MaxPool2d(scale_reduce)
+    elif pool == 'adavg':
+      pool = nn.AdaptiveAvgPool2d(scale_reduce)
+    elif pool == 'adamax':
+      pool = nn.AdaptiveMaxPool2d(scale_reduce)
+    
     if(scale_reduce == None):
       self.pw_conv_1 = nn.Conv2d(in_ch, dimprod, 1)
       self.pw_conv_2 = nn.Sequential(
@@ -52,7 +68,7 @@ class ConvolutionalSelfAttention2d(nn.Module):
     else:
       scaled_hw = (dimprod // (scale_reduce**2))
       self.pw_conv_1 = nn.Sequential(
-          nn.AvgPool2d(scale_reduce),
+          pool,
           nn.Conv2d(in_ch, scaled_hw, 1)
       )
       self.pw_conv_2 = nn.Sequential(
@@ -62,7 +78,7 @@ class ConvolutionalSelfAttention2d(nn.Module):
       )
     self.pw_conv_3 = nn.Sequential(
         nn.Conv2d(in_ch, 3*in_ch, 1),
-        nn.GELU(),
+        act,
         nn.Dropout(0.1),
         nn.Conv2d(3*in_ch, in_ch, 1)
     )
